@@ -81,7 +81,7 @@ frontend/
     ├── package.json                # Frontend ecosystem dependency manifest
     └── vite.config.js              # Build parameters optimizing production asset delivery chunks
 ```
-    ---
+---
 
 ## 📸 Application Layout & Snapshots
 
