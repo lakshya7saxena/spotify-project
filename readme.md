@@ -140,9 +140,10 @@ This project adheres strictly to production-grade architectural patterns, ensuri
 - **Data Layer Validation:** Schema definitions utilize strict **Mongoose ODM** rules to preserve structural data integrity before pushing updates to the distributed **MongoDB Atlas** cluster hosted on **AWS**.
 - **Standardized Server Feedback:** API response blocks feature precise, predictable HTTP status codes pairing identical data signatures for tracking runtime errors or successful updates:
 
-| HTTP Status Code   | Execution Context                    | Payload Output Structure                             |
-| :----------------- | :----------------------------------- | :--------------------------------------------------- |
-| `200 OK`           | Successful Query / Fetch Sequences   | `{ success: true, data: [...] }`                     |
-| `201 Created`      | Successful Resource Ingestion        | `{ success: true, message: "..." }`                  |
-| `401 Unauthorized` | Invalid/Expired Token Handshakes     | `{ success: false, error: "Access Denied" }`         |
+| HTTP Status Code   | Execution Context                                 | Payload Output Structure                             |
+| :----------------- | :-----------------------------------              | :--------------------------------------------------- |
+| `200 OK`           | Successful Query / Fetch Sequences                | `{ success: true, data: [...] }`                     |
+| `201 Created`      | Successful Resource Ingestion                     | `{ success: true, message: "..." }`                  |
+| `401 Unauthorized` | Invalid/Expired Token Handshakes                  | `{ success: false, error: "Access Denied" }`         |
+| `403 Forbidden`    | Authenticated Identity Lacks Required Role Rights | `{ success: false, error: "Access Forbidden" }` |
 | `500 Server Error` | Database or External Gateway Timeout | `{ success: false, error: "Internal Server Error" }` |
