@@ -17,6 +17,66 @@ The application implements a strict separation of concerns between standard list
 
 ---
 
+## 🛠️ Technologies Used
+
+The application is built using a highly decoupled architecture, leveraging modern web engineering tools to ensure optimal database pooling, secure media streaming, and modular front-end interfaces.
+
+### 🧱 Full-Stack Core Architecture
+| Technology | Layer | Deployment Context / Usage |
+| :--- | :--- | :--- |
+| **React (Vite)** | Frontend | Built as a Single Page Application (SPA) leveraging fast client-side rendering, micro-component architectures, and optimized production builds. |
+| **Node.js** | Backend | Runtime environment managing high-throughput asynchronous execution blocks. |
+| **Express.js** | Backend | Minimalist backend framework used to design the RESTful routing matrix, role-based access controllers, and centralized middleware pipelines. |
+| **MongoDB Atlas** | Database | Cloud-based distributed document database cluster hosted over remote cloud networks. |
+| **Mongoose ODM** | Database | Object Data Modeling library used to build strict schema validations, relational data structures, and sanitization rules. |
+
+### ☁️ Infrastructure & Third-Party Integrations
+| Service / Tool | Layer | Execution Context / Usage |
+| :--- | :--- | :--- |
+| **AWS Infrastructure** | Hosting | Utilized a free-tier cloud instance node to launch and run our distributed MongoDB database layer securely. |
+| **ImageKit CDN** | Storage | Cloud-native Media CDN used to offload, optimize, and distribute high-fidelity music tracking streams (`.mp3`) and corresponding graphics canvas elements. |
+
+### 📦 Key Backend Libraries
+* **`multer` (v2.1.1):** Configured with custom in-memory storage modules to safely handle incoming multi-part `form-data` binary assets without writing heavy caches directly to host server disks.
+* **`jsonwebtoken` (v9.0.3):** Handles stateless user sessions by issuing, signing, and decoding secure bearer tokens containing the user's encrypted role configurations (`User` vs. `Artist`).
+* **`bcryptjs` (v3.0.3):** Implements strong one-way cryptographic hashing strategies to secure user passwords at rest prior to database insertion.
+* **`cookie-parser` (v1.4.7):** Parses digital authorization cookies on incoming requests to extract validation tokens cleanly behind the scenes.
+* **`cors` (v2.8.6):** Standard cross-origin security context provisioning middleware designed to regulate strict API network handshakes between our frontend and backend layers.
+
+### 🎨 Key Frontend Tooling
+* **Tailwind CSS:** An atomic, utility-first CSS framework used to build completely responsive, theme-driven dashboards with zero overhead styling bundles.
+* **Lucide React / SVGs:** Injected lightweight vector-based icon elements ensuring seamless high-resolution responsive rendering across screen scaling changes.
+
+## 📸 Application Layout & Snapshots
+
+The client interface dynamically adapts its layout structure across three distinct session states based on the verified authentication context and role tokens.
+
+### 1. Public Guest Landing Page (Unauthenticated State)
+
+> The entry viewport rendered when a visitor first initializes the application without an active session token. It presents a clean promotional hero canvas alongside navigation hooks directing the guest to authenticate.
+
+<img src="placeholders/guest_landing_page.png" width="100%" alt="Public Guest Landing Page Layout" />
+
+### 2. Multi-Page Onboarding Gate (Login / Signup Pages)
+
+> Dedicated, router-mapped viewports (`/login` and `/signup`) built with validation forms. The signup interface captures structural configuration settings, including the specialized account role selection (`User` vs. `Artist`).
+
+<img src="placeholders/authentication_gate.png" width="100%" alt="Sign Up and Login Interface Layouts" />
+
+### 3. Adaptive Audio Dashboard (Authenticated Listener View)
+
+> Conditionally initialized when the account token carries the standard listener (`User`) flag. Exposes the complete media streaming environment, dynamic content grids, search tracks, and global audio playback controls.
+
+<img src="placeholders/user_dashboard.png" width="100%" alt="User Stream Player Canvas Workspace" />
+
+### 4. Isolated Media Ingestion Console (Authenticated Artist View)
+
+> Conditionally rendered when the account token carries the creator (`Artist`) validation flag. Swaps out the media exploration layout entirely, presenting a specialized interface focused on multi-part streaming uploads and track metadata management.
+
+<img src="placeholders/artist_console.png" width="100%" alt="Artist Creator Upload Management Portal" />
+
+---
+
 ## 📂 Project Architecture
 
 The system is split into two cleanly decoupled components following modern micro-repository patterns:
@@ -85,37 +145,6 @@ frontend/
 
 ---
 
-## 📸 Application Layout & Snapshots
-
-The client interface dynamically adapts its layout structure across three distinct session states based on the verified authentication context and role tokens.
-
-
-### 1. Public Guest Landing Page (Unauthenticated State)
-
-> The entry viewport rendered when a visitor first initializes the application without an active session token. It presents a clean promotional hero canvas alongside navigation hooks directing the guest to authenticate.
-
-<img src="placeholders/guest_landing_page.png" width="100%" alt="Public Guest Landing Page Layout" />
-
-### 2. Multi-Page Onboarding Gate (Login / Signup Pages)
-
-> Dedicated, router-mapped viewports (`/login` and `/signup`) built with validation forms. The signup interface captures structural configuration settings, including the specialized account role selection (`User` vs. `Artist`).
-
-<img src="placeholders/authentication_gate.png" width="100%" alt="Sign Up and Login Interface Layouts" />
-
-### 3. Adaptive Audio Dashboard (Authenticated Listener View)
-
-> Conditionally initialized when the account token carries the standard listener (`User`) flag. Exposes the complete media streaming environment, dynamic content grids, search tracks, and global audio playback controls.
-
-<img src="placeholders/user_dashboard.png" width="100%" alt="User Stream Player Canvas Workspace" />
-
-### 4. Isolated Media Ingestion Console (Authenticated Artist View)
-
-> Conditionally rendered when the account token carries the creator (`Artist`) validation flag. Swaps out the media exploration layout entirely, presenting a specialized interface focused on multi-part streaming uploads and track metadata management.
-
-<img src="placeholders/artist_console.png" width="100%" alt="Artist Creator Upload Management Portal" />
-
----
-
 ## 📜 Architectural Design Implementation Standard
 
 This project adheres strictly to production-grade architectural patterns, ensuring scalable data processing, high application security, and clean separation of concerns.
@@ -141,9 +170,9 @@ This project adheres strictly to production-grade architectural patterns, ensuri
 - **Standardized Server Feedback:** API response blocks feature precise, predictable HTTP status codes pairing identical data signatures for tracking runtime errors or successful updates:
 
 | HTTP Status Code   | Execution Context                                 | Payload Output Structure                             |
-| :----------------- | :-----------------------------------              | :--------------------------------------------------- |
+| :----------------- | :------------------------------------------------ | :--------------------------------------------------- |
 | `200 OK`           | Successful Query / Fetch Sequences                | `{ success: true, data: [...] }`                     |
 | `201 Created`      | Successful Resource Ingestion                     | `{ success: true, message: "..." }`                  |
 | `401 Unauthorized` | Invalid/Expired Token Handshakes                  | `{ success: false, error: "Access Denied" }`         |
-| `403 Forbidden`    | Authenticated Identity Lacks Required Role Rights | `{ success: false, error: "Access Forbidden" }` |
-| `500 Server Error` | Database or External Gateway Timeout | `{ success: false, error: "Internal Server Error" }` |
+| `403 Forbidden`    | Authenticated Identity Lacks Required Role Rights | `{ success: false, error: "Access Forbidden" }`      |
+| `500 Server Error` | Database or External Gateway Timeout              | `{ success: false, error: "Internal Server Error" }` |
