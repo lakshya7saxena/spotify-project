@@ -24,7 +24,7 @@ The system is split into two cleanly decoupled components following modern micro
 ### 1. Backend Service Layer (`/backend`)
 Adheres strictly to the industry-standard **MVC (Model-View-Controller) / Service** architectural pattern to decouple data schemas, business orchestrations, and HTTP request lifecycles.
 
-
+```text
 backend/
 ├── .vscode/
 ├── node_modules/
@@ -51,13 +51,13 @@ backend/
 ├── package-lock.json
 ├── package.json                    # Backend core Manifest file
 └── server.js                       # Primary HTTP listener instantiation script
-
+```
 
 ### 2. Frontend Interface Layer ('/frontend')
 Engineered as a single-page application (SPA) with highly atomic, reusable functional components powered by React and styled via utility-first atomic design primitives with Tailwind CSS.
 
 
-
+```text
 frontend/
 └── src/
     ├── assets/                     # Vector icons (SVGs), splash canvases, and static graphics
@@ -80,7 +80,7 @@ frontend/
     ├── package-lock.json
     ├── package.json                # Frontend ecosystem dependency manifest
     └── vite.config.js              # Build parameters optimizing production asset delivery chunks
-
+```
     ---
 
 ## 📸 Application Layout & Snapshots
