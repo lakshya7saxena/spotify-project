@@ -1,4 +1,3 @@
-```markdown
 # 🎵 Spotify Clone Project
 
 A production-ready, full-stack music streaming platform featuring role-based access control (RBAC), secure token-based authentication, a decoupled architectural layout, and third-party media CDN integration. 
@@ -25,7 +24,7 @@ The system is split into two cleanly decoupled components following modern micro
 ### 1. Backend Service Layer (`/backend`)
 Adheres strictly to the industry-standard **MVC (Model-View-Controller) / Service** architectural pattern to decouple data schemas, business orchestrations, and HTTP request lifecycles.
 
-```text
+
 backend/
 ├── .vscode/
 ├── node_modules/
@@ -58,7 +57,7 @@ backend/
 Engineered as a single-page application (SPA) with highly atomic, reusable functional components powered by React and styled via utility-first atomic design primitives with Tailwind CSS.
 
 
-```text
+
 frontend/
 └── src/
     ├── assets/                     # Vector icons (SVGs), splash canvases, and static graphics
