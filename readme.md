@@ -69,7 +69,12 @@ The client interface dynamically adapts its layout structure across three distin
 
 <img src="placeholders/user_dashboard.png" width="100%" alt="User Stream Player Canvas Workspace" />
 
-### 4. Isolated Media Ingestion Console (Authenticated Artist View)
+### 4. Active Audio Playback Interface (Live Player View)
+> Displays the synchronized real-time state when a user initiates a track stream. Features a persistent media playback bar tracking ongoing track runtimes, interactive pause/play/skip state controllers, and dynamic asset injection mapping the active ImageKit thumbnail and track metadata.
+
+<img src="placeholders/active_playback_state.png" width="100%" alt="Live Audio Playback Player Workspace View" />
+
+### 5. Isolated Media Ingestion Console (Authenticated Artist View)
 
 > Conditionally rendered when the account token carries the creator (`Artist`) validation flag. Swaps out the media exploration layout entirely, presenting a specialized interface focused on multi-part streaming uploads and track metadata management.
 
