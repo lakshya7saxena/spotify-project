@@ -8,7 +8,7 @@ const SignUp = () => {
         e.preventDefault()
         const formData = new FormData(e.target)
         await axios.post("http://localhost:3000/api/auth/register",Object.fromEntries(formData)).then((res) => {
-            alert("Signed In Successfully")
+            alert("Signed Up Successfully")
             e.target.reset()
             navigate("/login")
         }).catch((err) => {
@@ -17,7 +17,7 @@ const SignUp = () => {
 
     }
     return (
-        <div className='h-7/10 flex flex-col justify-around py-5 w-1/4 rounded-2xl px-10  bg-[#2e2f33]'>
+        <div className=' flex flex-col m-2 justify-around h-120  py-8 md:w-1/4 rounded-2xl md:px-10 px-16   bg-[#2e2f33]'>
             <h1 className='text-6xl font-extrabold text-center tracking-tight'>Sign <span className='text-[#1dd760]'>Up</span></h1>
             <div>
                 <form onSubmit={handleSubmit} className=' flex flex-col gap-5 items-center'>

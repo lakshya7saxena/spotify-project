@@ -6,14 +6,16 @@ import Buttons from '../components/Buttons'
 import musicBg from '../assets/bg.png';
 const Home = () => {
   const [status, setStatus] = useState()
+  const [songs, setSongs] = useState();
   const fetchSongs = async () => {
-    try{
+    try {
       const data = await axios.get("http://localhost:3000/api/music/")
       setStatus(data.status)
-    }catch(err){
+      setSongs(data)
+    } catch (err) {
       setStatus(err.status);
     }
-    
+
   }
   useEffect(() => {
     fetchSongs()
@@ -21,11 +23,11 @@ const Home = () => {
 
 
 
-  
+
   return (
-    <div className={`w-screen h-full bg-cover relative  flex ${status==200?'':'justify-center'} items-center `} >
-      
-      {status==200?<DisplaySongs/>:(status==403?<UploadSongs/>:<Buttons/>)}
+    <div className={`w-screen  h-full bg-cover relative  justify-center   flex  items-center`} >
+
+      {status == 200 ? <DisplaySongs data={songs.data.songs} user={songs.data.user}/> : (status == 403 ? <UploadSongs /> : <Buttons />)}
     </div>
   )
 }

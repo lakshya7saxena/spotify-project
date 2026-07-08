@@ -1,15 +1,13 @@
 import React from 'react'
-import Navbar from './components/Navbar'
 import { Route, Routes } from 'react-router-dom'
-import SignUp from './pages/SignUp'
+import SignUp from './pages/Signup'
 import Login from './pages/Login'
 import Home from './pages/Home'
 
 const App = () => {
   return (
     <div className='bg-[#121212] h-screen text-white'>
-      <Navbar/>
-      <section className='h-89/100 flex items-center justify-center'>
+      <section className='h-screen flex items-center justify-center'>
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/signup' element={<SignUp/>}/>

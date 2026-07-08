@@ -1,25 +1,26 @@
 import React, { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 import playBtn from "../assets/playBtn.svg"
-const DisplaySongs = () => {
+import Home from "../assets/home.svg"
+import Logo from "../assets/logo.svg"
+import { Link } from 'react-router-dom'
+const DisplaySongs = (props) => {
   var content = ""
-  const [data, setData] = useState([])
+  const { data, user } = props;
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(null)
   const [trackProgress, setTrackProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
   const audioRef = useRef(new Audio());
-
-
-  const fetchSongs = async () => {
-    const songs = await axios.get("http://localhost:3000/api/music/")
-    setData(songs.data.songs)
+  const [flag, setFlag] = useState(false)
+  const handleClick = () => {
+    setFlag(!flag)
   }
 
 
   useEffect(() => {
-    fetchSongs()
     const audio = audioRef.current;
 
     const handleTimeUpdate = () => {
@@ -46,7 +47,7 @@ const DisplaySongs = () => {
     };
   }, [])
 
-  const handleLogOut = async() => {
+  const handleLogOut = async () => {
     await axios.post("http://localhost:3000/api/auth/logout").then((res) => {
       alert("Logged Out Successfully")
       window.location.reload();
@@ -110,10 +111,30 @@ const DisplaySongs = () => {
 
 
   return (
-    <div className='flex flex-wrap px-20 gap-10'>
-      <button onClick={handleLogOut} className='absolute top-5 right-5 px-5 py-3 bg-[#1dd760] text-black font-bold rounded-full active:scale-95 cursor-pointer'>Log Out</button>
+    <div className='flex flex-wrap md:h-fit md:pt-0 z-0 h-full overflow-auto pt-30 justify-center px-20  gap-10'>
+
+      <nav className='md:text-2xl text-sm w-screen  absolute z-10 top-0  left-0 font-bold flex bg-black text-white justify-between items-center md:p-4 px-2 py-6'>
+        <div className='flex md:gap-4 items-center'>
+          <img src={Logo} />
+          <img src={Home} width={20} />
+        </div>
+        <div className='flex gap-5 md:gap-7 md:mr-20'>
+          <div>Premium</div>
+          <div>Support</div>
+          <div>Download</div>
+        </div>
+        <button onClick={handleClick} className='bg-white cursor-pointer md:px-4 py-1 px-2 text-black capitalize rounded-md md:text-3xl'>{user.username.slice(0, 1)}</button>
+      </nav>
+      {flag && (
+        <div className='absolute top-16 right-2 mt-2 w-48 bg-[#0c0e28] border border-gray-700 rounded-xl shadow-xl z-50 py-1 overflow-hidden  duration-150 '>
+          <div className='px-4 py-2.5 border-b border-gray-700 text-lg text-gray-400'>Signed In as <br /> <span className='font-semibold text-gray-200'>{user.username}</span> </div>
+          <button className='w-full text-left px-4 py-2 text-lg text-gray-300 hover:bg-gray-800 transition-colors'>Settings</button>
+          <button onClick={handleLogOut} className='w-full cursor-pointer text-left px-4 py-2 text-lg text-rose-400 hover:bg-rose-500/10 transition-colors font-medium border-t border-gray-700/50'>Logout</button>
+        </div>
+      )}
+
       {content}
-      {currentTrack && (<div className="fixed bottom-0 left-0 right-0 bg-zinc-900 border-t border-zinc-800 text-white p-4 flex flex-col md:flex-row items-center justify-between gap-4 z-50 shadow-2xl">
+      {currentTrack && (<div className="absolute bottom-0  left-0 right-0 bg-zinc-900 border-t border-zinc-800 text-white p-4 flex flex-col md:flex-row items-center justify-between gap-4 z-50 shadow-2xl">
 
         {/* Left Side: Track Info */}
         <div className="flex items-center gap-3 w-full md:w-1/4">
@@ -133,7 +154,7 @@ const DisplaySongs = () => {
           {/* Play/Pause Circle Button */}
           <button
             onClick={() => playMusic(currentTrack)}
-            className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:scale-105 transition-all shadow"
+            className="w-10 h-10 rounded-full cursor-pointer bg-white text-black flex items-center justify-center hover:scale-105 transition-all shadow"
           >
             {isPlaying ? (
               // Pause Icon

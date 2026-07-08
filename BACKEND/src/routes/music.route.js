@@ -13,4 +13,5 @@ router.post("/create-album", authMiddleware.verifyArtist,musicController.createA
 router.get('/',authMiddleware.verifyUser,musicController.displayMusic)
 router.get('/albums',authMiddleware.verifyUser,musicController.displayAlbums)
 router.get('/albums/:id',authMiddleware.verifyUser,musicController.displayAlbum)
+router.get('/artist',authMiddleware.verifyArtist,musicController.getArtist)
 export default router

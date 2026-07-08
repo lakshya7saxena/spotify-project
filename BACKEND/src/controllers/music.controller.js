@@ -1,16 +1,17 @@
 import jwt from "jsonwebtoken"
 import uploadFile from "../services/storage.service.js"
+import userModel from "../models/user.model.js"
 import musicModel from "../models/music.model.js"
 import albumModel from "../models/album.model.js"
 const createMusic = async (req, res) => {
     const { title } = req.body
-    const musicFile =req.files['music'][0]
-    const thumbnailFile =req.files['thumbnail'][0]
-    const musicResponse = await uploadFile(musicFile.buffer,"music")
-    const thumbnailResponse = await uploadFile(thumbnailFile.buffer,"thumbnail")
+    const musicFile = req.files['music'][0]
+    const thumbnailFile = req.files['thumbnail'][0]
+    const musicResponse = await uploadFile(musicFile.buffer, "music")
+    const thumbnailResponse = await uploadFile(thumbnailFile.buffer, "thumbnail")
     const music = await musicModel.create({
         uri: musicResponse.url,
-        thumbnail:thumbnailResponse.url,
+        thumbnail: thumbnailResponse.url,
         title,
         artist: req.user.id
     })
@@ -36,9 +37,11 @@ const createAlbum = async (req, res) => {
 
 const displayMusic = async (req, res) => {
     const songs = await musicModel.find().populate("artist", "username email")
+    const user = await userModel.findById(req.user.id)
     return res.status(200).json({
         message: "Songs Fetched Successfully",
-        songs
+        songs,
+        user
     })
 }
 
@@ -52,11 +55,20 @@ const displayAlbums = async (req, res) => {
 
 const displayAlbum = async (req, res) => {
     const id = req.params.id
-    const album = await albumModel.findById(id).populate("artist","username email").populate("musics","title uri thumbnail")
+    const album = await albumModel.findById(id).populate("artist", "username email").populate("musics", "title uri thumbnail")
     return res.status(200).json({
         message: "Album Fetched Successfully",
         album
     })
 }
 
-export default { createMusic, createAlbum, displayMusic, displayAlbums, displayAlbum }
+const getArtist=async(req,res)=>{
+    const artist = await userModel.findById(req.user.id)
+    return res.status(200).json({
+        message:"Artist Fetched Successfully",
+        artist
+    })
+}
+
+
+export default { createMusic, createAlbum, displayMusic, displayAlbums, displayAlbum, getArtist }
