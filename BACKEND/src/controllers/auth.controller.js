@@ -23,60 +23,75 @@ const registerUser = async (req, res) => {
         role: user.userModel
     }, process.env.JWT_SECRET)
 
-    res.cookie("token", token)
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        maxAge: 24 * 60 * 60 * 1000
+    });
 
     return res.status(201).json({
         message: "User Registered Successfully",
-        user:{
-            id:user._id,
-            username:user.username,
-            email:user.email,
-            role:user.role
+        user: {
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            role: user.role
         }
     })
 }
 
-const loginUser=async(req,res)=>{
-    const {username,email,password}=req.body
-    const user=await userModel.findOne({
-        $or:[
-            {username},
-            {email}
+const loginUser = async (req, res) => {
+    const { username, email, password } = req.body
+    const user = await userModel.findOne({
+        $or: [
+            { username },
+            { email }
         ]
     })
-    if(!user){
+    if (!user) {
         return res.status(401).json({
-            message:"Invalid User Credentials"
+            message: "Invalid User Credentials"
         })
     }
-    const isPasswordValid=await bcrypt.compare(password,user.password)
-    if(!isPasswordValid){
+    const isPasswordValid = await bcrypt.compare(password, user.password)
+    if (!isPasswordValid) {
         return res.status(401).json({
-            message:"Invalid Password"
+            message: "Invalid Password"
         })
     }
-    const token=jwt.sign({
-        id:user._id,
-        role:user.role
-    },process.env.JWT_SECRET)
+    const token = jwt.sign({
+        id: user._id,
+        role: user.role
+    }, process.env.JWT_SECRET)
 
-    res.cookie("token",token)
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        maxAge: 24 * 60 * 60 * 1000
+    });
     return res.status(200).json({
-        message:"Login Successful",
-        user:{
-            id:user._id,
-            username:user.username,
-            email:user.email,
-            role:user.role
+        message: "Login Successful",
+        user: {
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            role: user.role
         }
     })
 }
 
-const logoutUser=async(req,res)=>{
-    res.clearCookie("token")
+const logoutUser = async (req, res) => {
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        maxAge: 24 * 60 * 60 * 1000
+    })
     return res.status(200).json({
-        message:"User Logged Out Successfully"
+        message: "User Logged Out Successfully"
     })
 }
 
-export default { registerUser,loginUser,logoutUser}
+export default { registerUser, loginUser, logoutUser }
