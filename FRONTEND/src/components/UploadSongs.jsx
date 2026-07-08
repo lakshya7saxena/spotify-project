@@ -5,26 +5,28 @@ import Logo from "../assets/logo.svg"
 const UploadSongs = () => {
     const [artist, setArtist] = useState("")
     const [flag, setFlag] = useState(false)
-    
-    
+
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
-        await axios.post("http://localhost:3000/api/music/create-music", formData).then((res) => {
+        const backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+        await axios.post(`${backendUrl}/api/music/create-music`, formData).then((res) => {
             alert("Music Uploaded Successfully")
             e.target.reset()
         }).catch((err) => {
             alert("Server Is Down")
         })
     }
-    
+
     const handleClick = () => {
         setFlag(!flag)
     }
 
 
     const handleLogOut = async () => {
-        await axios.post("http://localhost:3000/api/auth/logout").then((res) => {
+        const backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+        await axios.post(`${backendUrl}/api/auth/logout`).then((res) => {
             alert("Logged Out Successfully")
             window.location.reload();
         }).catch((err) => {
@@ -33,7 +35,8 @@ const UploadSongs = () => {
     }
 
     const getArtist = async (req, res) => {
-        const data = await axios.get("http://localhost:3000/api/music/artist")
+        const backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+        const data = await axios.get(`${backendUrl}/api/music/artist`)
         setArtist(data.data.artist.username)
     }
 

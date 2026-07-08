@@ -7,7 +7,8 @@ const SignUp = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         const formData = new FormData(e.target)
-        await axios.post("http://localhost:3000/api/auth/register",Object.fromEntries(formData)).then((res) => {
+        const backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+        await axios.post(`${backendUrl}/api/auth/register`,Object.fromEntries(formData)).then((res) => {
             alert("Signed Up Successfully")
             e.target.reset()
             navigate("/login")

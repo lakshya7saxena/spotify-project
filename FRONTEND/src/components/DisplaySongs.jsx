@@ -48,7 +48,8 @@ const DisplaySongs = (props) => {
   }, [])
 
   const handleLogOut = async () => {
-    await axios.post("http://localhost:3000/api/auth/logout").then((res) => {
+    const backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+    await axios.post(`${backendUrl}/api/auth/logout`).then((res) => {
       alert("Logged Out Successfully")
       window.location.reload();
     }).catch((err) => {

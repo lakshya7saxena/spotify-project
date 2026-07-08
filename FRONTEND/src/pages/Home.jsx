@@ -9,7 +9,8 @@ const Home = () => {
   const [songs, setSongs] = useState();
   const fetchSongs = async () => {
     try {
-      const data = await axios.get("http://localhost:3000/api/music/")
+      const backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+      const data = await axios.get(`${backendUrl}/api/music/`)
       setStatus(data.status)
       setSongs(data)
     } catch (err) {
