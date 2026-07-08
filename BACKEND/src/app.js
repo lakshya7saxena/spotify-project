@@ -8,7 +8,7 @@ app.use(express.json())
 app.use(cookieParser())
 const allowedOrigins=[
     "http://localhost:5173",
-    "https://spotify-project-phi.vercel.app/"
+    "https://spotify-project-phi.vercel.app"
 ]
 app.use(cors({
     origin:function(origin,callback){
