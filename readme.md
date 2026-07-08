@@ -6,11 +6,19 @@ The application implements a strict separation of concerns between standard list
 
 ---
 
+## 🔗 Live Deployment Links
+
+ **Live URL:** [View Project Here](https://spotify-project-phi.vercel.app/)
+
+
+---
+
 ## 🚀 Key Features
 
 - **Role-Based Architecture (RBAC):**
   - **User:** Can access public streams, navigate personalized feeds, browse multi-tier albums, and trigger real-time audio playback. (Restricted from content management handles).
   - **Artist:** Specialized creator dashboard dedicated strictly to ingestion workflows (track creation, metadata provisioning, canvas/thumbnail uploads). Restricted from public stream interfaces to maintain portal segregation.
+- **Full Device Responsiveness:** Custom styled from the ground up using utility-first fluid grids, ensuring a seamless, high-fidelity experience across mobile devices, tablets, and desktop displays.
 - **Robust Security & Session Management:** Stateless `JSON Web Tokens (JWT)` paired with automated cookie parsing (`cookie-parser`) for encrypted context handling and protected routing layers.
 - **Enterprise Storage Pipeline:** Integrated with **ImageKit CDN** via custom asynchronous service abstractions to offload thick multi-part binary buffers (audios + high-resolution image thumbnails).
 - **Relational Object Mapping:** Clean schemas using **Mongoose ODM** deployed on a distributed cloud topology leveraging **MongoDB Atlas** hosted on **AWS Infrastructure**.
