@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 axios.defaults.withCredentials=true
-const SignUp = () => {
+const Signup = () => {
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -46,4 +46,4 @@ const SignUp = () => {
     )
 }
 
-export default SignUp
+export default Signup
